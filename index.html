@@ -23,6 +23,42 @@
     --tagBg:rgba(242,239,233,.85);
     --credit:#8f877b;
   }
+  :root[data-style="graydark"]{
+    /* ---- אפור, קוביות כהות: רקע אפור בינוני וקוביות כהות ממנו ---- */
+    --bgTex:none;
+    --bg:#87878c; --bgGrad:#98989d;
+    --pageInk:#ffffff; --pageMuted:#ececee; --pageFaint:#d4d4d8; --pageLine:#97979c;
+    --headAccent:#ffffff;
+    --panel:#7b7b80; --card:#75757a; --line:#68686d; --line2:#5d5d62;
+    --panelInk:#ffffff; --panelMuted:#e4e4e7; --panelFaint:#c9c9cd;
+    --acc1:#3a3a40; --acc2:#232328; --accInk:#ffffff; --priceInk:#ffffff;
+    --inBg:#6d6d72; --inPh:#c2c2c6;
+    --bannerBg:#75757a; --bannerInk:#e4e4e7; --bannerHl:#ffffff;
+    --phS:5%; --phL1:42%; --phL2:30%;
+    --wa:#8ceeab; --waze:#9adcf7; --danger:#ffab9e;
+    --toastBg:#232328; --toastInk:#ffffff;
+    --overlay:rgba(30,30,34,.6);
+    --tagBg:rgba(135,135,140,.85);
+    --credit:#dedee2;
+  }
+  :root[data-style="graylight"]{
+    /* ---- אפור, קוביות בהירות: רקע אפור בינוני וקוביות בהירות ממנו ---- */
+    --bgTex:none;
+    --bg:#87878c; --bgGrad:#98989d;
+    --pageInk:#ffffff; --pageMuted:#ececee; --pageFaint:#d4d4d8; --pageLine:#97979c;
+    --headAccent:#ffffff;
+    --panel:#dcdcdf; --card:#e6e6e9; --line:#c8c8cd; --line2:#b2b2b8;
+    --panelInk:#242428; --panelMuted:#5c5c64; --panelFaint:#8d8d95;
+    --acc1:#4a4a52; --acc2:#26262c; --accInk:#ffffff; --priceInk:#242428;
+    --inBg:#f4f4f6; --inPh:#9c9ca4;
+    --bannerBg:#77777c; --bannerInk:#eeeef0; --bannerHl:#ffffff;
+    --phS:8%; --phL1:82%; --phL2:68%;
+    --wa:#128c43; --waze:#0a76a8; --danger:#c2372b;
+    --toastBg:#242428; --toastInk:#ffffff;
+    --overlay:rgba(30,30,34,.55);
+    --tagBg:rgba(135,135,140,.85);
+    --credit:#dedee2;
+  }
   :root[data-style="warmconcrete"]{
     /* ---- בטון חם: אפור-אבן בולט עם כרטיסים לבנים ---- */
     --bg:#989184; --bgGrad:#a8a196;
@@ -326,6 +362,8 @@
   };
   const STYLES=[
     {id:'stone',       name:'אבן', desc:'אפור-בז׳ בהיר עם טקסטורה — לפי התמונה ששלחת', dots:['#cbc5bc','#f8f6f1','#332e27']},
+    {id:'graydark',    name:'אפור, קוביות כהות', desc:'רקע אפור בינוני וקוביות טיפה כהות ממנו', dots:['#87878c','#75757a','#232328']},
+    {id:'graylight',   name:'אפור, קוביות בהירות', desc:'רקע אפור בינוני וקוביות בהירות ממנו', dots:['#87878c','#e6e6e9','#26262c']},
     {id:'warmconcrete',name:'בטון חם', desc:'אפור-אבן בולט עם כרטיסים לבנים', dots:['#989184','#faf8f3','#3d3830']},
     {id:'darkstone',   name:'אבן כהה', desc:'אפור-אבן כהה וחם', dots:['#3a3630','#4d4841','#e8e2d7']},
     {id:'silver',      name:'כסוף', desc:'אפור בהיר מלא וקריר', dots:['#d9d9de','#fafafb','#2c2c33']}
