@@ -6,25 +6,7 @@
 <title>קטלוג המספרה · הדמיה</title>
 <style>
   :root{
-    /* ---- סגנון ברירת מחדל: אבן (לפי תמונת הרצפה) ---- */
-    --bgTex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.48 0 0 0 0 0.44 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    --bg:#cbc5bc; --bgGrad:#dcd7cf;
-    --pageInk:#2e2a25; --pageMuted:#6e675e; --pageFaint:#918a7e; --pageLine:#b3aca1;
-    --headAccent:#4a443c;
-    --panel:#f2efe9; --card:#f8f6f1; --line:#e0dbd2; --line2:#c9c2b7;
-    --panelInk:#2e2a25; --panelMuted:#6e675e; --panelFaint:#948c81;
-    --acc1:#5a5348; --acc2:#332e27; --accInk:#f7f4ee; --priceInk:#2e2a25;
-    --inBg:#fdfcf9; --inPh:#a39b8f;
-    --bannerBg:#beb7ac; --bannerInk:#453f37; --bannerHl:#211d18;
-    --phS:12%; --phL1:84%; --phL2:70%;
-    --wa:#128c43; --waze:#0a76a8; --danger:#b53a2c;
-    --toastBg:#2e2a25; --toastInk:#f7f4ee;
-    --overlay:rgba(46,42,37,.45);
-    --tagBg:rgba(242,239,233,.85);
-    --credit:#8f877b;
-  }
-  :root[data-style="graydark"]{
-    /* ---- אפור, קוביות כהות: רקע אפור בינוני וקוביות כהות ממנו בבירור ---- */
+    /* ---- הסגנון הקבוע: אפור, קוביות כהות ---- */
     --bgTex:none;
     --bg:#8e8e93; --bgGrad:#9e9ea3;
     --pageInk:#ffffff; --pageMuted:#f0f0f2; --pageFaint:#dcdce0; --pageLine:#a2a2a7;
@@ -41,77 +23,6 @@
     --tagBg:rgba(142,142,147,.85);
     --credit:#e4e4e8;
   }
-  :root[data-style="graylight"]{
-    /* ---- אפור, קוביות בהירות: רקע אפור בינוני וקוביות בהירות ממנו ---- */
-    --bgTex:none;
-    --bg:#87878c; --bgGrad:#98989d;
-    --pageInk:#ffffff; --pageMuted:#ececee; --pageFaint:#d4d4d8; --pageLine:#97979c;
-    --headAccent:#ffffff;
-    --panel:#dcdcdf; --card:#e6e6e9; --line:#c8c8cd; --line2:#b2b2b8;
-    --panelInk:#242428; --panelMuted:#5c5c64; --panelFaint:#8d8d95;
-    --acc1:#4a4a52; --acc2:#26262c; --accInk:#ffffff; --priceInk:#242428;
-    --inBg:#f4f4f6; --inPh:#9c9ca4;
-    --bannerBg:#77777c; --bannerInk:#eeeef0; --bannerHl:#ffffff;
-    --phS:8%; --phL1:82%; --phL2:68%;
-    --wa:#128c43; --waze:#0a76a8; --danger:#c2372b;
-    --toastBg:#242428; --toastInk:#ffffff;
-    --overlay:rgba(30,30,34,.55);
-    --tagBg:rgba(135,135,140,.85);
-    --credit:#dedee2;
-  }
-  :root[data-style="warmconcrete"]{
-    /* ---- בטון חם: אפור-אבן בולט עם כרטיסים לבנים ---- */
-    --bg:#989184; --bgGrad:#a8a196;
-    --pageInk:#ffffff; --pageMuted:#efeae2; --pageFaint:#d6d0c5; --pageLine:#aaa396;
-    --headAccent:#ffffff;
-    --panel:#f4f1ea; --card:#faf8f3; --line:#e0dbd1; --line2:#c8c1b5;
-    --panelInk:#33302a; --panelMuted:#6e675e; --panelFaint:#958d81;
-    --acc1:#6a6255; --acc2:#3d3830; --accInk:#ffffff; --priceInk:#33302a;
-    --inBg:#ffffff; --inPh:#a39b8f;
-    --bannerBg:#867f72; --bannerInk:#f1ede5; --bannerHl:#ffffff;
-    --phS:12%; --phL1:86%; --phL2:72%;
-    --wa:#128c43; --waze:#0a76a8; --danger:#b53a2c;
-    --toastBg:#33302a; --toastInk:#ffffff;
-    --overlay:rgba(40,37,32,.5);
-    --tagBg:rgba(152,145,132,.85);
-    --credit:#e3ded4;
-  }
-  :root[data-style="darkstone"]{
-    /* ---- אבן כהה: אפור-אבן כהה וחם ---- */
-    --bg:#3a3630; --bgGrad:#4a453e;
-    --pageInk:#efece6; --pageMuted:#b8b1a6; --pageFaint:#8f887d; --pageLine:#524d45;
-    --headAccent:#d6cfc3;
-    --panel:#454039; --card:#4d4841; --line:#5a544b; --line2:#6b6459;
-    --panelInk:#efece6; --panelMuted:#b8b1a6; --panelFaint:#8f887d;
-    --acc1:#e8e2d7; --acc2:#c9c1b2; --accInk:#2b2721; --priceInk:#e0d9cc;
-    --inBg:#322e28; --inPh:#7c7568;
-    --bannerBg:#46413a; --bannerInk:#b8b1a6; --bannerHl:#e8e2d7;
-    --phS:10%; --phL1:32%; --phL2:18%;
-    --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
-    --toastBg:#e8e2d7; --toastInk:#2b2721;
-    --overlay:rgba(20,18,15,.7);
-    --tagBg:rgba(58,54,48,.8);
-    --credit:#7c7568;
-  }
-  :root[data-style="silver"]{
-    /* ---- כסוף: אפור בהיר מלא ---- */
-    --bgTex:none;
-    --bg:#d9d9de; --bgGrad:#ececef;
-    --pageInk:#232327; --pageMuted:#5b5b63; --pageFaint:#84848c; --pageLine:#bcbcc3;
-    --headAccent:#3a3a42;
-    --panel:#f2f2f4; --card:#fafafb; --line:#dcdce1; --line2:#c5c5cc;
-    --panelInk:#232327; --panelMuted:#5b5b63; --panelFaint:#84848c;
-    --acc1:#55555e; --acc2:#2c2c33; --accInk:#ffffff; --priceInk:#232327;
-    --inBg:#ffffff; --inPh:#a0a0a8;
-    --bannerBg:#e6e6ea; --bannerInk:#5b5b63; --bannerHl:#232327;
-    --phS:10%; --phL1:86%; --phL2:72%;
-    --wa:#128c43; --waze:#0a76a8; --danger:#c2372b;
-    --toastBg:#232327; --toastInk:#ffffff;
-    --overlay:rgba(40,40,46,.45);
-    --tagBg:rgba(235,235,238,.85);
-    --credit:#93939b;
-  }
-
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--bg)}
   body{
@@ -128,7 +39,7 @@
   button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--headAccent);outline-offset:2px}
   #app{direction:rtl;max-width:720px;margin:0 auto;padding:28px 16px 90px}
   .corner{position:fixed;top:12px;left:12px;z-index:60;display:flex;gap:8px;align-items:center}
-  .demoTag,.styleBtn{background:var(--tagBg);border:1px solid var(--pageLine);color:var(--pageMuted);font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;backdrop-filter:blur(6px)}
+  .demoTag{background:var(--tagBg);border:1px solid var(--pageLine);color:var(--pageMuted);font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;backdrop-filter:blur(6px)}
   /* ---------- hero ---------- */
   .hero{text-align:center;padding:14px 0 6px}
   .eyebrow{color:var(--headAccent);letter-spacing:.38em;font-size:12px;font-weight:600;font-family:Georgia,"Iowan Old Style","Times New Roman",serif;text-indent:.38em}
@@ -204,15 +115,6 @@
   .gateErr{color:var(--danger);font-size:13px;font-weight:700;margin-top:9px;min-height:18px}
   .modalBtns{display:flex;gap:10px;margin-top:6px}
   .modalBtns .btn{flex:1}
-  /* ---------- style picker ---------- */
-  .styleList{display:flex;flex-direction:column;gap:9px;margin-bottom:12px}
-  .styleOpt{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1.5px solid var(--line2);border-radius:13px;background:var(--inBg);text-align:start;width:100%}
-  .styleOpt.active{border-color:var(--headAccent);box-shadow:0 0 0 1px var(--headAccent)}
-  .dots{display:flex;gap:4px;flex:none}
-  .dot{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.25)}
-  .soInfo{flex:1;min-width:0}
-  .soName{font-weight:800;font-size:14px}
-  .soDesc{font-size:12px;color:var(--panelFaint);margin-top:2px}
   /* ---------- lightbox ---------- */
   .lb{max-width:420px;width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:20px;overflow:hidden;direction:rtl;color:var(--panelInk)}
   .lbMedia{width:100%;aspect-ratio:1/1}
@@ -235,7 +137,6 @@
 <div id="app" dir="rtl" lang="he">
   <div class="corner">
     <div class="demoTag">👀 הדמיה</div>
-    <button class="styleBtn" id="styleBtn" type="button">🎨 סגנון</button>
   </div>
 
   <!-- ============ תצוגת לקוח ============ -->
@@ -324,23 +225,12 @@
     </form>
   </div>
 
-  <!-- ============ בחירת סגנון ============ -->
-  <div class="overlay" id="styleModal" hidden>
-    <div class="modal">
-      <h3>🎨 בחירת סגנון</h3>
-      <p class="hint">אפשר להחליף כמה שרוצים — הקטלוג משתנה מיד.</p>
-      <div class="styleList" id="styleList"></div>
-      <div class="modalBtns"><button class="btn" type="button" id="styleClose">סגירה</button></div>
-    </div>
-  </div>
-
   <div class="overlay" id="lightbox" hidden></div>
 </div>
 
 <script>
 (function(){
   const KEY='barberCatalogDemo_v1';
-  const STYLE_KEY='barberStyleV1';
   const PASS='1234';
   const seed=[
     {id:'s1',name:'ווקס עיצוב מט',price:45,emoji:'🫙',hue:38},
@@ -360,15 +250,6 @@
     },
     products:seed
   };
-  const STYLES=[
-    {id:'stone',       name:'אבן', desc:'אפור-בז׳ בהיר עם טקסטורה — לפי התמונה ששלחת', dots:['#cbc5bc','#f8f6f1','#332e27']},
-    {id:'graydark',    name:'אפור, קוביות כהות', desc:'רקע אפור בינוני וקוביות כהות ממנו בבירור', dots:['#8e8e93','#5a5a60','#1c1c21']},
-    {id:'graylight',   name:'אפור, קוביות בהירות', desc:'רקע אפור בינוני וקוביות בהירות ממנו', dots:['#87878c','#e6e6e9','#26262c']},
-    {id:'warmconcrete',name:'בטון חם', desc:'אפור-אבן בולט עם כרטיסים לבנים', dots:['#989184','#faf8f3','#3d3830']},
-    {id:'darkstone',   name:'אבן כהה', desc:'אפור-אבן כהה וחם', dots:['#3a3630','#4d4841','#e8e2d7']},
-    {id:'silver',      name:'כסוף', desc:'אפור בהיר מלא וקריר', dots:['#d9d9de','#fafafb','#2c2c33']}
-  ];
-
   let state=load(), editingId=null, pendingImg=null;
   const $=id=>document.getElementById(id);
 
@@ -383,43 +264,6 @@
     try{localStorage.setItem(KEY,JSON.stringify(state));}
     catch(e){toast('⚠️ אין מקום בזיכרון המכשיר — נסו תמונה קטנה יותר');}
   }
-
-  /* ---------- styles ---------- */
-  function currentStyle(){
-    try{const s=localStorage.getItem(STYLE_KEY);if(s&&STYLES.some(x=>x.id===s))return s;}catch(e){}
-    return 'stone';
-  }
-  function applyStyle(id){
-    if(id&&id!=='stone')document.documentElement.dataset.style=id;
-    else delete document.documentElement.dataset.style;
-    try{localStorage.setItem(STYLE_KEY,id||'stone');}catch(e){}
-    renderStyleList();
-  }
-  function renderStyleList(){
-    const list=$('styleList');if(!list)return;
-    const cur=currentStyle();
-    list.innerHTML='';
-    STYLES.forEach(s=>{
-      const b=document.createElement('button');
-      b.type='button';b.className='styleOpt'+(s.id===cur?' active':'');
-      const dots=document.createElement('div');dots.className='dots';
-      s.dots.forEach(c=>{const d=document.createElement('span');d.className='dot';d.style.background=c;dots.appendChild(d);});
-      const info=document.createElement('div');info.className='soInfo';
-      const n=document.createElement('div');n.className='soName';n.textContent=s.name+(s.id===cur?' ✓':'');
-      const ds=document.createElement('div');ds.className='soDesc';ds.textContent=s.desc;
-      info.append(n,ds);
-      b.append(dots,info);
-      b.addEventListener('click',()=>{
-        applyStyle(s.id);
-        $('styleModal').hidden=true;
-        toast('סגנון: '+s.name+' 🎨');
-      });
-      list.appendChild(b);
-    });
-  }
-  $('styleBtn').addEventListener('click',()=>{renderStyleList();$('styleModal').hidden=false;});
-  $('styleClose').addEventListener('click',()=>{$('styleModal').hidden=true;});
-  $('styleModal').addEventListener('click',e=>{if(e.target===$('styleModal'))$('styleModal').hidden=true;});
 
   function media(p){
     if(p.img){
@@ -641,7 +485,6 @@
     $('qrBox').appendChild(svg);
   })();
 
-  applyStyle(currentStyle());
   renderAll();
 })();
 </script>
