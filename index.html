@@ -73,6 +73,74 @@
     --tagBg:rgba(16,21,29,.8);
     --credit:#4d5c6d;
   }
+  :root[data-style="graphite"]{
+    /* ---- גרפיט: אפור כהה חזק, הכול כהה ---- */
+    --bg:#141416; --bgGrad:#232326;
+    --pageInk:#f2f2f4; --pageMuted:#a6a6ae; --pageFaint:#7c7c84; --pageLine:#333338;
+    --headAccent:#c9c9d1;
+    --panel:#1d1d21; --card:#232328; --line:#333339; --line2:#45454c;
+    --panelInk:#f2f2f4; --panelMuted:#a6a6ae; --panelFaint:#7c7c84;
+    --acc1:#ececf0; --acc2:#c6c6cf; --accInk:#17171a; --priceInk:#e2e2e8;
+    --inBg:#111114; --inPh:#5f5f66;
+    --bannerBg:#232327; --bannerInk:#a6a6ae; --bannerHl:#ececf0;
+    --phS:6%; --phL1:30%; --phL2:16%;
+    --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
+    --toastBg:#ececf0; --toastInk:#1a1a1e;
+    --overlay:rgba(0,0,0,.75);
+    --tagBg:rgba(20,20,22,.8);
+    --credit:#5f5f66;
+  }
+  :root[data-style="concrete"]{
+    /* ---- בטון: אפור בולט עם כרטיסים לבנים ---- */
+    --bg:#55555c; --bgGrad:#68686f;
+    --pageInk:#ffffff; --pageMuted:#d9d9de; --pageFaint:#bcbcc4; --pageLine:#6e6e76;
+    --headAccent:#ffffff;
+    --panel:#f5f5f6; --card:#fbfbfc; --line:#dcdce1; --line2:#c3c3cb;
+    --panelInk:#212126; --panelMuted:#5d5d66; --panelFaint:#8b8b94;
+    --acc1:#4a4a52; --acc2:#26262c; --accInk:#ffffff; --priceInk:#212126;
+    --inBg:#ffffff; --inPh:#9a9aa2;
+    --bannerBg:#47474e; --bannerInk:#e3e3e8; --bannerHl:#ffffff;
+    --phS:8%; --phL1:88%; --phL2:74%;
+    --wa:#128c43; --waze:#0a76a8; --danger:#c2372b;
+    --toastBg:#212126; --toastInk:#ffffff;
+    --overlay:rgba(28,28,32,.55);
+    --tagBg:rgba(85,85,92,.85);
+    --credit:#c6c6cd;
+  }
+  :root[data-style="slate"]{
+    /* ---- צפחה: אפור כהה עם גוון קריר ---- */
+    --bg:#20242b; --bgGrad:#2d323b;
+    --pageInk:#eef1f5; --pageMuted:#a8b0bc; --pageFaint:#7d8592; --pageLine:#39404b;
+    --headAccent:#c3ccd9;
+    --panel:#282d36; --card:#2e343e; --line:#3b424e; --line2:#4c5462;
+    --panelInk:#eef1f5; --panelMuted:#a8b0bc; --panelFaint:#7d8592;
+    --acc1:#dfe5ee; --acc2:#b9c3d2; --accInk:#1b2029; --priceInk:#d5dce7;
+    --inBg:#1a1e25; --inPh:#5d6572;
+    --bannerBg:#2b313b; --bannerInk:#a8b0bc; --bannerHl:#dfe5ee;
+    --phS:14%; --phL1:32%; --phL2:17%;
+    --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
+    --toastBg:#e6ebf2; --toastInk:#1c222b;
+    --overlay:rgba(8,10,14,.75);
+    --tagBg:rgba(32,36,43,.8);
+    --credit:#5d6572;
+  }
+  :root[data-style="silver"]{
+    /* ---- כסוף: אפור בהיר מלא ---- */
+    --bg:#d9d9de; --bgGrad:#ececef;
+    --pageInk:#232327; --pageMuted:#5b5b63; --pageFaint:#84848c; --pageLine:#bcbcc3;
+    --headAccent:#3a3a42;
+    --panel:#f2f2f4; --card:#fafafb; --line:#dcdce1; --line2:#c5c5cc;
+    --panelInk:#232327; --panelMuted:#5b5b63; --panelFaint:#84848c;
+    --acc1:#55555e; --acc2:#2c2c33; --accInk:#ffffff; --priceInk:#232327;
+    --inBg:#ffffff; --inPh:#a0a0a8;
+    --bannerBg:#e6e6ea; --bannerInk:#5b5b63; --bannerHl:#232327;
+    --phS:10%; --phL1:86%; --phL2:72%;
+    --wa:#128c43; --waze:#0a76a8; --danger:#c2372b;
+    --toastBg:#232327; --toastInk:#ffffff;
+    --overlay:rgba(40,40,46,.45);
+    --tagBg:rgba(235,235,238,.85);
+    --credit:#93939b;
+  }
 
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--bg)}
@@ -158,7 +226,7 @@
   .qrCap{color:var(--panelFaint);font-size:12.5px;text-align:center;max-width:40ch;line-height:1.55}
   /* ---------- overlays ---------- */
   .overlay{position:fixed;inset:0;background:var(--overlay);display:flex;align-items:center;justify-content:center;z-index:70;padding:20px;backdrop-filter:blur(5px)}
-  .modal{background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:22px;width:100%;max-width:340px;direction:rtl;color:var(--panelInk)}
+  .modal{background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:22px;width:100%;max-width:340px;direction:rtl;color:var(--panelInk);max-height:86vh;overflow-y:auto}
   .modal h3{font-size:18px;font-weight:800;margin-bottom:5px}
   .hint{color:var(--panelFaint);font-size:13px;margin-bottom:14px;line-height:1.5}
   .hint b{color:var(--priceInk)}
@@ -322,10 +390,14 @@
     products:seed
   };
   const STYLES=[
-    {id:'gold', name:'זהב מספרה', desc:'חום כהה עם זהב — הסגנון המקורי', dots:['#171008','#d9a648','#f5ecdc']},
-    {id:'light',name:'בהיר ונקי', desc:'לבן ואפור בהיר', dots:['#f4f4f5','#ffffff','#1b1b1f']},
-    {id:'gray', name:'אפור כהה', desc:'רקע כהה עם כרטיסים בהירים', dots:['#242428','#ececee','#28282e']},
-    {id:'navy', name:'כחול פלדה', desc:'כהה עם כחול מתכתי', dots:['#10151d','#7fb2d9','#e9eef5']}
+    {id:'gold',    name:'זהב מספרה', desc:'חום כהה עם זהב — הסגנון המקורי', dots:['#171008','#d9a648','#f5ecdc']},
+    {id:'light',   name:'בהיר ונקי', desc:'לבן ואפור בהיר', dots:['#f4f4f5','#ffffff','#1b1b1f']},
+    {id:'silver',  name:'כסוף', desc:'אפור בהיר מלא, יותר אפור מהלבן', dots:['#d9d9de','#fafafb','#2c2c33']},
+    {id:'concrete',name:'בטון', desc:'אפור חזק ובולט עם כרטיסים לבנים', dots:['#55555c','#fbfbfc','#26262c']},
+    {id:'gray',    name:'אפור כהה', desc:'רקע כהה עם כרטיסים בהירים', dots:['#242428','#ececee','#28282e']},
+    {id:'slate',   name:'צפחה', desc:'אפור כהה עם גוון קריר', dots:['#20242b','#2e343e','#b9c3d2']},
+    {id:'graphite',name:'גרפיט', desc:'אפור כהה חזק — הכול כהה', dots:['#141416','#232328','#ececf0']},
+    {id:'navy',    name:'כחול פלדה', desc:'כהה עם כחול מתכתי', dots:['#10151d','#7fb2d9','#e9eef5']}
   ];
 
   let state=load(), editingId=null, pendingImg=null;
