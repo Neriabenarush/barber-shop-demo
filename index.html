@@ -6,126 +6,60 @@
 <title>קטלוג המספרה · הדמיה</title>
 <style>
   :root{
-    /* ---- סגנון ברירת מחדל: זהב מספרה ---- */
-    --bg:#171008; --bgGrad:#2c2011;
-    --pageInk:#f5ecdc; --pageMuted:#b39c7e; --pageFaint:#8a775e; --pageLine:#3c2d1b;
-    --headAccent:#d9a648;
-    --panel:#201810; --card:#251c11; --line:#3c2d1b; --line2:#4d3a22;
-    --panelInk:#f5ecdc; --panelMuted:#b39c7e; --panelFaint:#8a775e;
-    --acc1:#f0ca7e; --acc2:#d9a648; --accInk:#2b1d04; --priceInk:#f0ca7e;
-    --inBg:#170f08; --inPh:#6d5c45;
-    --bannerBg:#2a2010; --bannerInk:#b39c7e; --bannerHl:#f0ca7e;
-    --phS:45%; --phL1:25%; --phL2:13%;
-    --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
-    --toastBg:#efe3cc; --toastInk:#2a1d06;
-    --overlay:rgba(12,8,3,.82);
-    --tagBg:rgba(23,16,8,.78);
-    --credit:#6d5c45;
+    /* ---- סגנון ברירת מחדל: אבן (לפי תמונת הרצפה) ---- */
+    --bgTex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.48 0 0 0 0 0.44 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --bg:#cbc5bc; --bgGrad:#dcd7cf;
+    --pageInk:#2e2a25; --pageMuted:#6e675e; --pageFaint:#918a7e; --pageLine:#b3aca1;
+    --headAccent:#4a443c;
+    --panel:#f2efe9; --card:#f8f6f1; --line:#e0dbd2; --line2:#c9c2b7;
+    --panelInk:#2e2a25; --panelMuted:#6e675e; --panelFaint:#948c81;
+    --acc1:#5a5348; --acc2:#332e27; --accInk:#f7f4ee; --priceInk:#2e2a25;
+    --inBg:#fdfcf9; --inPh:#a39b8f;
+    --bannerBg:#beb7ac; --bannerInk:#453f37; --bannerHl:#211d18;
+    --phS:12%; --phL1:84%; --phL2:70%;
+    --wa:#128c43; --waze:#0a76a8; --danger:#b53a2c;
+    --toastBg:#2e2a25; --toastInk:#f7f4ee;
+    --overlay:rgba(46,42,37,.45);
+    --tagBg:rgba(242,239,233,.85);
+    --credit:#8f877b;
   }
-  :root[data-style="light"]{
-    /* ---- בהיר ונקי: לבן ואפור בהיר ---- */
-    --bg:#f4f4f5; --bgGrad:#ffffff;
-    --pageInk:#1b1b1f; --pageMuted:#66666e; --pageFaint:#97979f; --pageLine:#dcdce0;
-    --headAccent:#1b1b1f;
-    --panel:#ffffff; --card:#ffffff; --line:#e4e4e8; --line2:#cdcdd3;
-    --panelInk:#1b1b1f; --panelMuted:#66666e; --panelFaint:#97979f;
-    --acc1:#3a3a40; --acc2:#1b1b1f; --accInk:#ffffff; --priceInk:#1b1b1f;
-    --inBg:#f6f6f8; --inPh:#a3a3ab;
-    --bannerBg:#ffffff; --bannerInk:#66666e; --bannerHl:#1b1b1f;
-    --phS:38%; --phL1:88%; --phL2:76%;
-    --wa:#149547; --waze:#0b7fb5; --danger:#c93a2e;
-    --toastBg:#1b1b1f; --toastInk:#ffffff;
-    --overlay:rgba(30,30,34,.45);
-    --tagBg:rgba(255,255,255,.85);
-    --credit:#a8a8b0;
-  }
-  :root[data-style="gray"]{
-    /* ---- אפור כהה: רקע כהה, כרטיסים בהירים ---- */
-    --bg:#242428; --bgGrad:#313136;
-    --pageInk:#f0f0f2; --pageMuted:#b9b9c0; --pageFaint:#8e8e96; --pageLine:#3f3f45;
-    --headAccent:#d6d6dc;
-    --panel:#ececee; --card:#f4f4f6; --line:#d8d8de; --line2:#c2c2ca;
-    --panelInk:#232327; --panelMuted:#5f5f67; --panelFaint:#8b8b93;
-    --acc1:#4a4a52; --acc2:#28282e; --accInk:#ffffff; --priceInk:#232327;
-    --inBg:#ffffff; --inPh:#9a9aa2;
-    --bannerBg:#2f2f34; --bannerInk:#c5c5cc; --bannerHl:#f0f0f2;
-    --phS:14%; --phL1:86%; --phL2:72%;
-    --wa:#149547; --waze:#0b7fb5; --danger:#c93a2e;
-    --toastBg:#f0f0f2; --toastInk:#232327;
-    --overlay:rgba(10,10,12,.6);
-    --tagBg:rgba(36,36,40,.8);
-    --credit:#77777e;
-  }
-  :root[data-style="navy"]{
-    /* ---- כחול פלדה ---- */
-    --bg:#10151d; --bgGrad:#1c2634;
-    --pageInk:#e9eef5; --pageMuted:#9daebf; --pageFaint:#71808f; --pageLine:#273140;
-    --headAccent:#88b4de;
-    --panel:#161e29; --card:#1a2330; --line:#283548; --line2:#33445c;
-    --panelInk:#e9eef5; --panelMuted:#9daebf; --panelFaint:#71808f;
-    --acc1:#b3d3ee; --acc2:#7fb2d9; --accInk:#0c1622; --priceInk:#b3d3ee;
-    --inBg:#0d131c; --inPh:#5c6b7c;
-    --bannerBg:#1b2735; --bannerInk:#9daebf; --bannerHl:#b3d3ee;
-    --phS:32%; --phL1:26%; --phL2:13%;
-    --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
-    --toastBg:#dfe9f3; --toastInk:#12202f;
-    --overlay:rgba(4,8,14,.82);
-    --tagBg:rgba(16,21,29,.8);
-    --credit:#4d5c6d;
-  }
-  :root[data-style="graphite"]{
-    /* ---- גרפיט: אפור כהה חזק, הכול כהה ---- */
-    --bg:#141416; --bgGrad:#232326;
-    --pageInk:#f2f2f4; --pageMuted:#a6a6ae; --pageFaint:#7c7c84; --pageLine:#333338;
-    --headAccent:#c9c9d1;
-    --panel:#1d1d21; --card:#232328; --line:#333339; --line2:#45454c;
-    --panelInk:#f2f2f4; --panelMuted:#a6a6ae; --panelFaint:#7c7c84;
-    --acc1:#ececf0; --acc2:#c6c6cf; --accInk:#17171a; --priceInk:#e2e2e8;
-    --inBg:#111114; --inPh:#5f5f66;
-    --bannerBg:#232327; --bannerInk:#a6a6ae; --bannerHl:#ececf0;
-    --phS:6%; --phL1:30%; --phL2:16%;
-    --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
-    --toastBg:#ececf0; --toastInk:#1a1a1e;
-    --overlay:rgba(0,0,0,.75);
-    --tagBg:rgba(20,20,22,.8);
-    --credit:#5f5f66;
-  }
-  :root[data-style="concrete"]{
-    /* ---- בטון: אפור בולט עם כרטיסים לבנים ---- */
-    --bg:#55555c; --bgGrad:#68686f;
-    --pageInk:#ffffff; --pageMuted:#d9d9de; --pageFaint:#bcbcc4; --pageLine:#6e6e76;
+  :root[data-style="warmconcrete"]{
+    /* ---- בטון חם: אפור-אבן בולט עם כרטיסים לבנים ---- */
+    --bg:#989184; --bgGrad:#a8a196;
+    --pageInk:#ffffff; --pageMuted:#efeae2; --pageFaint:#d6d0c5; --pageLine:#aaa396;
     --headAccent:#ffffff;
-    --panel:#f5f5f6; --card:#fbfbfc; --line:#dcdce1; --line2:#c3c3cb;
-    --panelInk:#212126; --panelMuted:#5d5d66; --panelFaint:#8b8b94;
-    --acc1:#4a4a52; --acc2:#26262c; --accInk:#ffffff; --priceInk:#212126;
-    --inBg:#ffffff; --inPh:#9a9aa2;
-    --bannerBg:#47474e; --bannerInk:#e3e3e8; --bannerHl:#ffffff;
-    --phS:8%; --phL1:88%; --phL2:74%;
-    --wa:#128c43; --waze:#0a76a8; --danger:#c2372b;
-    --toastBg:#212126; --toastInk:#ffffff;
-    --overlay:rgba(28,28,32,.55);
-    --tagBg:rgba(85,85,92,.85);
-    --credit:#c6c6cd;
+    --panel:#f4f1ea; --card:#faf8f3; --line:#e0dbd1; --line2:#c8c1b5;
+    --panelInk:#33302a; --panelMuted:#6e675e; --panelFaint:#958d81;
+    --acc1:#6a6255; --acc2:#3d3830; --accInk:#ffffff; --priceInk:#33302a;
+    --inBg:#ffffff; --inPh:#a39b8f;
+    --bannerBg:#867f72; --bannerInk:#f1ede5; --bannerHl:#ffffff;
+    --phS:12%; --phL1:86%; --phL2:72%;
+    --wa:#128c43; --waze:#0a76a8; --danger:#b53a2c;
+    --toastBg:#33302a; --toastInk:#ffffff;
+    --overlay:rgba(40,37,32,.5);
+    --tagBg:rgba(152,145,132,.85);
+    --credit:#e3ded4;
   }
-  :root[data-style="slate"]{
-    /* ---- צפחה: אפור כהה עם גוון קריר ---- */
-    --bg:#20242b; --bgGrad:#2d323b;
-    --pageInk:#eef1f5; --pageMuted:#a8b0bc; --pageFaint:#7d8592; --pageLine:#39404b;
-    --headAccent:#c3ccd9;
-    --panel:#282d36; --card:#2e343e; --line:#3b424e; --line2:#4c5462;
-    --panelInk:#eef1f5; --panelMuted:#a8b0bc; --panelFaint:#7d8592;
-    --acc1:#dfe5ee; --acc2:#b9c3d2; --accInk:#1b2029; --priceInk:#d5dce7;
-    --inBg:#1a1e25; --inPh:#5d6572;
-    --bannerBg:#2b313b; --bannerInk:#a8b0bc; --bannerHl:#dfe5ee;
-    --phS:14%; --phL1:32%; --phL2:17%;
+  :root[data-style="darkstone"]{
+    /* ---- אבן כהה: אפור-אבן כהה וחם ---- */
+    --bg:#3a3630; --bgGrad:#4a453e;
+    --pageInk:#efece6; --pageMuted:#b8b1a6; --pageFaint:#8f887d; --pageLine:#524d45;
+    --headAccent:#d6cfc3;
+    --panel:#454039; --card:#4d4841; --line:#5a544b; --line2:#6b6459;
+    --panelInk:#efece6; --panelMuted:#b8b1a6; --panelFaint:#8f887d;
+    --acc1:#e8e2d7; --acc2:#c9c1b2; --accInk:#2b2721; --priceInk:#e0d9cc;
+    --inBg:#322e28; --inPh:#7c7568;
+    --bannerBg:#46413a; --bannerInk:#b8b1a6; --bannerHl:#e8e2d7;
+    --phS:10%; --phL1:32%; --phL2:18%;
     --wa:#3ecf70; --waze:#54c5ec; --danger:#e0604a;
-    --toastBg:#e6ebf2; --toastInk:#1c222b;
-    --overlay:rgba(8,10,14,.75);
-    --tagBg:rgba(32,36,43,.8);
-    --credit:#5d6572;
+    --toastBg:#e8e2d7; --toastInk:#2b2721;
+    --overlay:rgba(20,18,15,.7);
+    --tagBg:rgba(58,54,48,.8);
+    --credit:#7c7568;
   }
   :root[data-style="silver"]{
     /* ---- כסוף: אפור בהיר מלא ---- */
+    --bgTex:none;
     --bg:#d9d9de; --bgGrad:#ececef;
     --pageInk:#232327; --pageMuted:#5b5b63; --pageFaint:#84848c; --pageLine:#bcbcc3;
     --headAccent:#3a3a42;
@@ -147,7 +81,8 @@
   body{
     color:var(--pageInk);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Heebo","Assistant",Arial,sans-serif;
-    background:radial-gradient(900px 480px at 50% -160px,var(--bgGrad) 0%,var(--bg) 70%) var(--bg);
+    background-color:var(--bg);
+    background-image:var(--bgTex),radial-gradient(900px 480px at 50% -160px,var(--bgGrad) 0%,var(--bg) 70%);
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
@@ -390,14 +325,10 @@
     products:seed
   };
   const STYLES=[
-    {id:'gold',    name:'זהב מספרה', desc:'חום כהה עם זהב — הסגנון המקורי', dots:['#171008','#d9a648','#f5ecdc']},
-    {id:'light',   name:'בהיר ונקי', desc:'לבן ואפור בהיר', dots:['#f4f4f5','#ffffff','#1b1b1f']},
-    {id:'silver',  name:'כסוף', desc:'אפור בהיר מלא, יותר אפור מהלבן', dots:['#d9d9de','#fafafb','#2c2c33']},
-    {id:'concrete',name:'בטון', desc:'אפור חזק ובולט עם כרטיסים לבנים', dots:['#55555c','#fbfbfc','#26262c']},
-    {id:'gray',    name:'אפור כהה', desc:'רקע כהה עם כרטיסים בהירים', dots:['#242428','#ececee','#28282e']},
-    {id:'slate',   name:'צפחה', desc:'אפור כהה עם גוון קריר', dots:['#20242b','#2e343e','#b9c3d2']},
-    {id:'graphite',name:'גרפיט', desc:'אפור כהה חזק — הכול כהה', dots:['#141416','#232328','#ececf0']},
-    {id:'navy',    name:'כחול פלדה', desc:'כהה עם כחול מתכתי', dots:['#10151d','#7fb2d9','#e9eef5']}
+    {id:'stone',       name:'אבן', desc:'אפור-בז׳ בהיר עם טקסטורה — לפי התמונה ששלחת', dots:['#cbc5bc','#f8f6f1','#332e27']},
+    {id:'warmconcrete',name:'בטון חם', desc:'אפור-אבן בולט עם כרטיסים לבנים', dots:['#989184','#faf8f3','#3d3830']},
+    {id:'darkstone',   name:'אבן כהה', desc:'אפור-אבן כהה וחם', dots:['#3a3630','#4d4841','#e8e2d7']},
+    {id:'silver',      name:'כסוף', desc:'אפור בהיר מלא וקריר', dots:['#d9d9de','#fafafb','#2c2c33']}
   ];
 
   let state=load(), editingId=null, pendingImg=null;
@@ -418,12 +349,12 @@
   /* ---------- styles ---------- */
   function currentStyle(){
     try{const s=localStorage.getItem(STYLE_KEY);if(s&&STYLES.some(x=>x.id===s))return s;}catch(e){}
-    return 'gold';
+    return 'stone';
   }
   function applyStyle(id){
-    if(id&&id!=='gold')document.documentElement.dataset.style=id;
+    if(id&&id!=='stone')document.documentElement.dataset.style=id;
     else delete document.documentElement.dataset.style;
-    try{localStorage.setItem(STYLE_KEY,id||'gold');}catch(e){}
+    try{localStorage.setItem(STYLE_KEY,id||'stone');}catch(e){}
     renderStyleList();
   }
   function renderStyleList(){
