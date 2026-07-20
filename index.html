@@ -181,7 +181,7 @@
     <h2 class="sec"><span>הוספת מוצר חדש</span></h2>
     <form class="panel" id="productForm">
       <label class="fLabel">תמונת המוצר</label>
-      <button type="button" id="photoBox"><span style="font-size:30px">📷</span><span>הוסיפו תמונה — מהמצלמה או מהגלריה</span></button>
+      <button type="button" id="photoBox"><span style="font-size:30px">📷</span><span>הוסיפו תמונה — הרקע יוחלף אוטומטית לרקע סטודיו ✨</span></button>
       <input type="file" id="fileInput" accept="image/*" hidden>
       <label class="fLabel" for="pName">שם המוצר</label>
       <input class="in" id="pName" placeholder="לדוגמה: ווקס עיצוב מט">
@@ -369,19 +369,90 @@
   $('backBtn').addEventListener('click',()=>{$('adminView').hidden=true;$('storeView').hidden=false;window.scrollTo(0,0);});
 
   /* ---------- photo upload ---------- */
-  $('photoBox').addEventListener('click',()=>$('fileInput').click());
+  $('photoBox').addEventListener('click',()=>{if(processing)return;$('fileInput').click();});
   $('fileInput').addEventListener('change',e=>{
     const f=e.target.files&&e.target.files[0];
     if(!f)return;
-    shrink(f,url=>{pendingImg=url;showPreview(url);});
+    shrink(f,url=>{autoStudio(url);});
   });
+
+  /* ---------- auto studio background ---------- */
+  let processing=false, bgLibPromise=null;
+  function loadBgLib(){
+    if(!bgLibPromise)bgLibPromise=import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm');
+    return bgLibPromise;
+  }
+  function setPhotoBusy(msg){
+    $('photoBox').innerHTML='<span style="font-size:26px">⏳</span><span>'+msg+'</span>';
+  }
+  function blobToImage(b){
+    return new Promise((res,rej)=>{
+      const u=URL.createObjectURL(b);
+      const i=new Image();
+      i.onload=()=>res(i);
+      i.onerror=rej;
+      i.src=u;
+    });
+  }
+  async function composeStudio(blob){
+    const img=await blobToImage(blob);
+    const t=document.createElement('canvas');t.width=img.width;t.height=img.height;
+    const tc=t.getContext('2d');tc.drawImage(img,0,0);
+    const data=tc.getImageData(0,0,t.width,t.height).data;
+    let minX=t.width,minY=t.height,maxX=-1,maxY=-1;
+    for(let y=0;y<t.height;y++){
+      for(let x=0;x<t.width;x++){
+        if(data[(y*t.width+x)*4+3]>10){
+          if(x<minX)minX=x;if(x>maxX)maxX=x;
+          if(y<minY)minY=y;if(y>maxY)maxY=y;
+        }
+      }
+    }
+    if(maxX<0)throw new Error('empty cutout');
+    const cw=maxX-minX+1,ch=maxY-minY+1;
+    const S=900,c=document.createElement('canvas');c.width=S;c.height=S;
+    const ctx=c.getContext('2d');
+    const g=ctx.createRadialGradient(S/2,S*0.40,0,S/2,S*0.40,S*0.75);
+    g.addColorStop(0,'#6d6d74');g.addColorStop(1,'#47474d');
+    ctx.fillStyle=g;ctx.fillRect(0,0,S,S);
+    const target=S*0.74,r=Math.min(target/cw,target/ch);
+    const w=cw*r,h=ch*r,yb=S*0.865;
+    ctx.save();
+    ctx.translate(S/2,yb);ctx.scale(1,0.16);
+    const sg=ctx.createRadialGradient(0,0,0,0,0,w*0.55);
+    sg.addColorStop(0,'rgba(0,0,0,0.40)');sg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=sg;ctx.beginPath();ctx.arc(0,0,w*0.55,0,7);ctx.fill();
+    ctx.restore();
+    ctx.drawImage(img,minX,minY,cw,ch,S/2-w/2,yb-h,w,h);
+    return c.toDataURL('image/jpeg',0.86);
+  }
+  async function autoStudio(rawUrl){
+    processing=true;
+    setPhotoBusy('טוען מנוע חכם… בפעם הראשונה זה לוקח דקה-שתיים');
+    try{
+      const lib=await loadBgLib();
+      const blob=await lib.removeBackground(rawUrl,{
+        model:'isnet_quint8',
+        progress:(key,cur,total)=>{if(total)setPhotoBusy('מוריד מנוע חכם… '+Math.round(cur/total*100)+'%');}
+      });
+      setPhotoBusy('גוזר את המוצר ומרכיב רקע סטודיו… ✂️');
+      const url=await composeStudio(blob);
+      pendingImg=url;showPreview(url);
+      toast('התמונה עובדה אוטומטית ✨');
+    }catch(err){
+      pendingImg=rawUrl;showPreview(rawUrl);
+      toast('העיבוד האוטומטי לא זמין כרגע — התמונה נשמרה כמו שהיא');
+    }finally{
+      processing=false;
+    }
+  }
   function showPreview(url){
     const box=$('photoBox');box.innerHTML='';
     if(url){
       const i=document.createElement('img');i.src=url;box.appendChild(i);
       const s=document.createElement('span');s.className='swapHint';s.textContent='להחלפת התמונה — לחצו שוב 📷';box.appendChild(s);
     }else{
-      box.innerHTML='<span style="font-size:30px">📷</span><span>הוסיפו תמונה — מהמצלמה או מהגלריה</span>';
+      box.innerHTML='<span style="font-size:30px">📷</span><span>הוסיפו תמונה — הרקע יוחלף אוטומטית לרקע סטודיו ✨</span>';
     }
   }
   function shrink(file,cb){
@@ -402,6 +473,7 @@
   /* ---------- product form ---------- */
   $('productForm').addEventListener('submit',e=>{
     e.preventDefault();
+    if(processing){toast('רגע — התמונה עוד בעיבוד ✨');return;}
     const name=$('pName').value.trim(),price=$('pPrice').value;
     if(!name){toast('חסר שם למוצר ✏️');return;}
     if(price===''||Number(price)<0){toast('חסר מחיר 💰');return;}
