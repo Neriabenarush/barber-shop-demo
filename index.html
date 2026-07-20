@@ -115,6 +115,17 @@
   .gateErr{color:var(--danger);font-size:13px;font-weight:700;margin-top:9px;min-height:18px}
   .modalBtns{display:flex;gap:10px;margin-top:6px}
   .modalBtns .btn{flex:1}
+  /* ---------- photo editor ---------- */
+  .editWide{max-width:400px}
+  .cropWrap{position:relative;overflow:hidden;border-radius:12px;margin:6px 0 14px;background:#2c2c31;touch-action:none;width:max-content;max-width:100%;margin-inline:auto}
+  #cropCanvas{display:block;max-width:100%}
+  #cropBox{position:absolute;border:2px dashed #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.45);cursor:move;touch-action:none}
+  .cropHandle{position:absolute;left:-14px;bottom:-14px;width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid #6d6d74;touch-action:none;cursor:nesw-resize}
+  .resWrap{border-radius:12px;overflow:hidden;margin:6px 0 14px;background:#2c2c31;min-height:170px;display:flex;align-items:center;justify-content:center}
+  #resImg{width:100%;display:block}
+  .resStatus{color:var(--panelMuted);font-size:14px;padding:26px 12px;text-align:center;line-height:1.7}
+  .btnCol{display:flex;flex-direction:column;gap:9px}
+  .btnCol .btn{width:100%}
   /* ---------- lightbox ---------- */
   .lb{max-width:420px;width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:20px;overflow:hidden;direction:rtl;color:var(--panelInk)}
   .lbMedia{width:100%;aspect-ratio:1/1}
@@ -223,6 +234,36 @@
         <button class="btn" type="button" id="gateCancel">ביטול</button>
       </div>
     </form>
+  </div>
+
+  <!-- ============ עריכת תמונה ============ -->
+  <div class="overlay" id="editModal" hidden>
+    <div class="modal editWide">
+      <div id="cropScreen">
+        <h3>✂️ סמנו את המוצר</h3>
+        <p class="hint">גררו את המסגרת כך שתקיף רק את המוצר, והזיזו את הידית העגולה כדי לשנות גודל — ככה החיתוך יוצא הכי מדויק.</p>
+        <div class="cropWrap">
+          <canvas id="cropCanvas"></canvas>
+          <div id="cropBox"><div class="cropHandle"></div></div>
+        </div>
+        <div class="btnCol">
+          <button class="btn gold" type="button" id="cropGo">המשך לעיבוד ✨</button>
+          <button class="btn" type="button" id="cropSkipRaw">דלג — השתמש בתמונה כמו שהיא</button>
+        </div>
+      </div>
+      <div id="resultScreen" hidden>
+        <h3>ככה זה ייראה בקטלוג</h3>
+        <div class="resWrap">
+          <div class="resStatus" id="resStatus">רגע…</div>
+          <img id="resImg" hidden alt="תוצאה">
+        </div>
+        <div class="btnCol">
+          <button class="btn gold" type="button" id="resUse">מעולה — השתמש בזה ✅</button>
+          <button class="btn" type="button" id="resRecrop">נסה חיתוך אחר ✂️</button>
+          <button class="btn" type="button" id="resUseRaw">השתמש במקורית בלי עיבוד</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="overlay" id="lightbox" hidden></div>
@@ -373,7 +414,7 @@
   $('fileInput').addEventListener('change',e=>{
     const f=e.target.files&&e.target.files[0];
     if(!f)return;
-    shrink(f,url=>{autoStudio(url);});
+    shrink(f,url=>{openEditor(url);});
   });
 
   /* ---------- auto studio background ---------- */
@@ -426,26 +467,110 @@
     ctx.drawImage(img,minX,minY,cw,ch,S/2-w/2,yb-h,w,h);
     return c.toDataURL('image/jpeg',0.86);
   }
-  async function autoStudio(rawUrl){
-    processing=true;
-    setPhotoBusy('טוען מנוע חכם… בפעם הראשונה זה לוקח דקה-שתיים');
-    try{
-      const lib=await loadBgLib();
-      const blob=await lib.removeBackground(rawUrl,{
-        model:'isnet_quint8',
-        progress:(key,cur,total)=>{if(total)setPhotoBusy('מוריד מנוע חכם… '+Math.round(cur/total*100)+'%');}
-      });
-      setPhotoBusy('גוזר את המוצר ומרכיב רקע סטודיו… ✂️');
-      const url=await composeStudio(blob);
-      pendingImg=url;showPreview(url);
-      toast('התמונה עובדה אוטומטית ✨');
-    }catch(err){
-      pendingImg=rawUrl;showPreview(rawUrl);
-      toast('העיבוד האוטומטי לא זמין כרגע — התמונה נשמרה כמו שהיא');
-    }finally{
-      processing=false;
-    }
+  async function studioProcess(srcUrl,onStatus){
+    const lib=await loadBgLib();
+    const blob=await lib.removeBackground(srcUrl,{
+      model:'isnet_quint8',
+      progress:(key,cur,total)=>{if(total)onStatus('מוריד מנוע חכם… '+Math.round(cur/total*100)+'% (חד־פעמי)');}
+    });
+    onStatus('גוזר את המוצר ומרכיב רקע סטודיו… ✂️');
+    return await composeStudio(blob);
   }
+
+  /* ---------- photo editor ---------- */
+  let editImg=null, editUrl=null, lastProcessed=null, cropRect={x:0,y:0,w:0,h:0}, cvScale=1;
+  function openEditor(url){
+    processing=true;editUrl=url;lastProcessed=null;
+    setPhotoBusy('התמונה בעריכה…');
+    const i=new Image();
+    i.onload=()=>{
+      editImg=i;
+      $('editModal').hidden=false;
+      $('cropScreen').hidden=false;
+      $('resultScreen').hidden=true;
+      requestAnimationFrame(drawCrop);
+    };
+    i.onerror=()=>{processing=false;showPreview(pendingImg||null);toast('לא הצלחתי לקרוא את התמונה 😕');};
+    i.src=url;
+  }
+  function drawCrop(){
+    const cv=$('cropCanvas');
+    const avail=$('cropScreen').clientWidth-4||340;
+    const maxW=Math.min(336,avail), maxH=Math.round(window.innerHeight*0.42);
+    let w=maxW,h=Math.round(w*editImg.height/editImg.width);
+    if(h>maxH){h=maxH;w=Math.round(h*editImg.width/editImg.height);}
+    cv.width=w;cv.height=h;
+    cv.getContext('2d').drawImage(editImg,0,0,w,h);
+    cvScale=editImg.width/w;
+    cropRect={x:Math.round(w*0.07),y:Math.round(h*0.07),w:Math.round(w*0.86),h:Math.round(h*0.86)};
+    placeCropBox();
+  }
+  function placeCropBox(){
+    const b=$('cropBox');
+    b.style.left=cropRect.x+'px';b.style.top=cropRect.y+'px';
+    b.style.width=cropRect.w+'px';b.style.height=cropRect.h+'px';
+  }
+  (function cropDrag(){
+    const b=$('cropBox'),hd=b.querySelector('.cropHandle');
+    let mode=null,sx=0,sy=0,s=null;
+    function down(e,m){
+      mode=m;sx=e.clientX;sy=e.clientY;s={x:cropRect.x,y:cropRect.y,w:cropRect.w,h:cropRect.h};
+      e.preventDefault();e.stopPropagation();
+      try{e.target.setPointerCapture(e.pointerId);}catch(err){}
+    }
+    b.addEventListener('pointerdown',e=>{if(e.target===hd)return;down(e,'move');});
+    hd.addEventListener('pointerdown',e=>down(e,'size'));
+    window.addEventListener('pointermove',e=>{
+      if(!mode)return;
+      const cv=$('cropCanvas'),W=cv.width,H=cv.height;
+      const dx=e.clientX-sx,dy=e.clientY-sy;
+      if(mode==='move'){
+        cropRect.x=Math.min(Math.max(0,s.x+dx),W-cropRect.w);
+        cropRect.y=Math.min(Math.max(0,s.y+dy),H-cropRect.h);
+      }else{
+        const dx2=Math.max(-s.x,Math.min(dx,s.w-44));
+        cropRect.x=s.x+dx2;cropRect.w=s.w-dx2;
+        cropRect.h=Math.max(44,Math.min(s.h+dy,H-s.y));
+      }
+      placeCropBox();
+    });
+    window.addEventListener('pointerup',()=>{mode=null;});
+  })();
+  function setResButtons(done){
+    $('resUse').hidden=!done||!lastProcessed;
+    $('resRecrop').hidden=!done;
+    $('resUseRaw').hidden=!done;
+  }
+  $('cropGo').addEventListener('click',async()=>{
+    $('cropScreen').hidden=true;$('resultScreen').hidden=false;
+    const st=$('resStatus');
+    st.hidden=false;$('resImg').hidden=true;setResButtons(false);
+    st.textContent='טוען מנוע חכם… בפעם הראשונה במכשיר זה לוקח דקה בערך';
+    const c=document.createElement('canvas');
+    const sx=Math.round(cropRect.x*cvScale),sy=Math.round(cropRect.y*cvScale),
+          sw=Math.max(1,Math.round(cropRect.w*cvScale)),sh=Math.max(1,Math.round(cropRect.h*cvScale));
+    c.width=sw;c.height=sh;
+    c.getContext('2d').drawImage(editImg,sx,sy,sw,sh,0,0,sw,sh);
+    const cropUrl=c.toDataURL('image/jpeg',0.92);
+    try{
+      lastProcessed=await studioProcess(cropUrl,m=>{st.textContent=m;});
+      $('resImg').src=lastProcessed;$('resImg').hidden=false;st.hidden=true;
+      setResButtons(true);
+    }catch(err){
+      lastProcessed=null;
+      st.textContent='העיבוד לא הצליח הפעם 😕 אפשר לנסות חיתוך אחר, או להשתמש בתמונה המקורית.';
+      setResButtons(true);
+    }
+  });
+  function closeEditor(chosen){
+    $('editModal').hidden=true;processing=false;
+    if(chosen){pendingImg=chosen;showPreview(chosen);}
+    else showPreview(pendingImg||null);
+  }
+  $('resUse').addEventListener('click',()=>{closeEditor(lastProcessed);toast('התמונה עובדה ונשמרה ✨');});
+  $('resRecrop').addEventListener('click',()=>{$('resultScreen').hidden=true;$('cropScreen').hidden=false;});
+  $('resUseRaw').addEventListener('click',()=>{closeEditor(editUrl);toast('נשמרה התמונה המקורית 📷');});
+  $('cropSkipRaw').addEventListener('click',()=>{closeEditor(editUrl);toast('נשמרה התמונה המקורית 📷');});
   function showPreview(url){
     const box=$('photoBox');box.innerHTML='';
     if(url){
